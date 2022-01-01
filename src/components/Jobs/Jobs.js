@@ -9,6 +9,7 @@ const DUMMY_JOBS = [
     company: "Dacetim",
     vacancies: 7,
     remote: true,
+    date: '01-01-2022',
   },
   {
     id: "job2",
@@ -18,6 +19,7 @@ const DUMMY_JOBS = [
     company: "Facebook",
     vacancies: 2,
     remote: true,
+    date: '01-01-2022',
   },
   {
     id: "job3",
@@ -27,6 +29,7 @@ const DUMMY_JOBS = [
     company: "Micwoew",
     vacancies: 3,
     remote: false,
+    date: '01-01-2022',
   },
   {
     id: "job4",
@@ -36,6 +39,7 @@ const DUMMY_JOBS = [
     company: "Instagram",
     vacancies: 15,
     remote: true,
+    date: '01-01-2022',
   },
 ];
 
