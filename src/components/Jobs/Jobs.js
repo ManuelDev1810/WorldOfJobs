@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import JobItem from "./JobItem/JobItem";
 
 const DUMMY_JOBS = [
@@ -9,7 +10,7 @@ const DUMMY_JOBS = [
     company: "Dacetim",
     vacancies: 7,
     remote: true,
-    date: '01-01-2022',
+    date: "01-01-2022",
   },
   {
     id: "job2",
@@ -19,7 +20,7 @@ const DUMMY_JOBS = [
     company: "Facebook",
     vacancies: 2,
     remote: true,
-    date: '01-01-2022',
+    date: "01-01-2022",
   },
   {
     id: "job3",
@@ -29,7 +30,7 @@ const DUMMY_JOBS = [
     company: "Micwoew",
     vacancies: 3,
     remote: false,
-    date: '01-01-2022',
+    date: "01-01-2022",
   },
   {
     id: "job4",
@@ -39,15 +40,35 @@ const DUMMY_JOBS = [
     company: "Instagram",
     vacancies: 15,
     remote: true,
-    date: '01-01-2022',
+    date: "01-01-2022",
   },
 ];
 
 const Jobs = () => {
+  const data = useSelector((state) => state.jobs);
+  const loadedJobs = [];
+
+  if (data.jobs) {
+    for (const key in data.jobs) {
+      loadedJobs.push({
+        id: key,
+        title: data.jobs[key].enteredTitle,
+        description: data.jobs[key].enteredDescription,
+        company: data.jobs[key].enteredCompany,
+        vacancies: data.jobs[key].enteredVacancy,
+        remote: true,
+        date: "01-01-2022",
+      });
+    }
+  }
+
+  console.log(loadedJobs);
+  console.log(DUMMY_JOBS)
+
   return (
     <div className="d-flex justify-content-center">
       <div className="list-group w-50">
-        {DUMMY_JOBS.map((job) => {
+        {loadedJobs.map((job) => {
           return <JobItem key={job.id} job={job} />;
         })}
       </div>
