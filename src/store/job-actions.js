@@ -18,9 +18,25 @@ export const fetchJobsData = () => {
 
     try {
       const jobsData = await fetchData();
+      const loadedJobs = [];
+
+      if (jobsData) {
+        for (const key in jobsData) {
+          loadedJobs.push({
+            id: jobsData[key].id,
+            title: jobsData[key].title,
+            company: jobsData[key].company,
+            vacancies: jobsData[key].vacancies,
+            remote: true,
+            description: jobsData[key].description,
+            resume: jobsData[key].resume,
+            date: jobsData[key].date,
+          });
+        }
+      }
       dispatch(
         jobActions.replaceJobs({
-          jobs: jobsData || [],
+          jobs: loadedJobs || [],
         })
       );
     } catch (error) {
@@ -30,22 +46,21 @@ export const fetchJobsData = () => {
   };
 };
 
-export const sendJobData = (job) => {
+export const sendJobData = (jobs) => {
   return async (dispatch) => {
     const sendRequest = async () => {
       const response = await fetch(
         "https://react-http-12004-default-rtdb.firebaseio.com/jobs.json",
         {
-          method: "POST",
-          body: JSON.stringify(job),
+          method: "PUT",
+          body: JSON.stringify(jobs),
         }
       );
 
       if (!response.ok) {
         //Show error with another state
-        console.log('Something bad happened');
+        console.log("Something bad happened");
       }
-
     };
 
     try {

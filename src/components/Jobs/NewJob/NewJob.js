@@ -6,8 +6,8 @@ const NewJob = () => {
   const dispatch = useDispatch();
   const titleElement = useRef("");
   const companyElement = useRef("");
-  const vacancyElement = useRef(1);
-  const remoteElement = useRef(0);
+  const vacanciesElement = useRef(1);
+  const remoteElement = useRef(false);
   const resumeElement = useRef("");
   const descriptionElement = useRef("");
 
@@ -15,19 +15,21 @@ const NewJob = () => {
     event.preventDefault();
     const enteredTitle = titleElement.current.value;
     const enteredCompany = companyElement.current.value;
-    const enteredVacancy = vacancyElement.current.value;
-    const enteredRemote = remoteElement.current.value;
+    const enteredVacancies = vacanciesElement.current.value;
+    const enteredRemote = remoteElement.current.checked;
     const enteredResume = resumeElement.current.value;
     const enteredDescription = descriptionElement.current.value;
 
     dispatch(
       jobActions.addJob({
-        enteredTitle,
-        enteredCompany,
-        enteredVacancy,
-        enteredRemote,
-        enteredResume,
-        enteredDescription,
+        id: new Date().getTime(),
+        title: enteredTitle,
+        company: enteredCompany,
+        vacancies: enteredVacancies,
+        remote: enteredRemote,
+        dscription: enteredDescription,
+        resume: enteredResume,
+        date: new Date().toISOString().slice(0, 10),
       })
     );
   };
@@ -69,7 +71,7 @@ const NewJob = () => {
               className="form-control"
               id="vacancies"
               placeholder="Vacancies"
-              ref={vacancyElement}
+              ref={vacanciesElement}
             />
           </div>
           <div className="mb-3 form-check">

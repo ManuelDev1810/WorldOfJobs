@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     jobs: [],
-    changed: false
+    changed: false,
 }
 
 const jobSlice = createSlice({
