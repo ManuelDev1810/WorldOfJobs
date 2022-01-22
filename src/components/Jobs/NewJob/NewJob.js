@@ -6,7 +6,7 @@ const NewJob = () => {
   const dispatch = useDispatch();
   const titleElement = useRef("");
   const companyElement = useRef("");
-  const vacanciesElement = useRef(1);
+  const vacanciesElement = useRef(null);
   const remoteElement = useRef(false);
   const resumeElement = useRef("");
   const descriptionElement = useRef("");
@@ -32,7 +32,18 @@ const NewJob = () => {
         date: new Date().toISOString().slice(0, 10),
       })
     );
+
+    clearForm();
   };
+
+  const clearForm = () => {
+    titleElement.current.value = "";
+    companyElement.current.value = "";
+    vacanciesElement.current.value = null;
+    remoteElement.current.checked = false;
+    resumeElement.current.value = "";
+    descriptionElement.current.value = "";
+  }
 
   return (
     <div className="d-flex justify-content-center mt-2 mb-2">

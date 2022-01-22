@@ -6,12 +6,14 @@ import Jobs from "./components/Jobs/Jobs";
 import JobsSearch from "./components/Jobs/JobsSearch/JobsSearch";
 import NewJob from "./components/Jobs/NewJob/NewJob";
 import { useEffect } from "react";
+import Notification from "./components/UI/Notification";
 
 let isInitial = true;
 
 function App() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.jobs);
+  const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
     dispatch(fetchJobsData());
@@ -29,8 +31,15 @@ function App() {
   }, [data, dispatch]);
 
   return (
-    <div className="App">
+    <div>
       <Header />
+      {notification && (
+        <Notification
+          status={notification.status}
+          message={notification.message}
+        />
+      )}
+
       <Routes>
         <Route path="/" element={<Navigate replace to="/jobs" />} />
         <Route

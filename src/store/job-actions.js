@@ -1,14 +1,16 @@
 import { jobActions } from "./job-slide";
+import uiSlice, { uiActions } from "./ui-slice";
+import {SUCCESS_STATUS, PENDING_STATUS, ERROR_STATUS} from "../constants/notificationStatus";
+import {SUCCESS_MESSAGE, ERROR_MESSAGE, PENDING_MESSAGE} from "../constants/notificationMessage";
+import { JOBS_API_URL } from "../constants/api";
 
 export const fetchJobsData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://react-http-12004-default-rtdb.firebaseio.com/jobs.json"
-      );
+      const response = await fetch(JOBS_API_URL);
 
       if (!response.ok) {
-        throw new Error("Fetching jobs data failed.");
+        throw new Error(ERROR_MESSAGE);
       }
 
       const data = await response.json();
@@ -40,34 +42,51 @@ export const fetchJobsData = () => {
         })
       );
     } catch (error) {
-      //Show error with another state
-      console.log(error);
+      dispatch(
+        uiSlice.showNotifications({
+          status: ERROR_STATUS,
+          message: ERROR_MESSAGE,
+        })
+      );
     }
   };
 };
 
 export const sendJobData = (jobs) => {
   return async (dispatch) => {
+    dispatch(
+      uiActions.showNotifications({
+        status: PENDING_STATUS,
+        message: PENDING_MESSAGE,
+      })
+    );
+
     const sendRequest = async () => {
-      const response = await fetch(
-        "https://react-http-12004-default-rtdb.firebaseio.com/jobs.json",
-        {
-          method: "PUT",
-          body: JSON.stringify(jobs),
-        }
-      );
+      const response = await fetch(JOBS_API_URL, {
+        method: "PUT",
+        body: JSON.stringify(jobs),
+      });
 
       if (!response.ok) {
-        //Show error with another state
-        console.log("Something bad happened");
+        throw new Error(ERROR_MESSAGE);
       }
     };
 
     try {
-      sendRequest();
+      await sendRequest();
+      dispatch(
+        uiActions.showNotifications({
+          status: SUCCESS_STATUS,
+          message: SUCCESS_MESSAGE,
+        })
+      );
     } catch (error) {
-      //Show error with another state
-      console.log(error);
+      dispatch(
+        uiActions.showNotifications({
+          status: ERROR_STATUS,
+          message: ERROR_MESSAGE,
+        })
+      );
     }
   };
 };
