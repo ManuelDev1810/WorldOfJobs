@@ -6,13 +6,25 @@ const Jobs = () => {
   const organizedJobs = [...data.jobs];
   organizedJobs.reverse();
 
+  const content = () => {
+    {
+      if (organizedJobs.length > 0) {
+        return (
+          <>
+            {organizedJobs.map((job) => {
+              return <JobItem key={job.id} job={job} />;
+            })}
+          </>
+        );
+      } else {
+        return <p>No jobs available</ p>;
+      }
+    }
+  };
+
   return (
     <div className="d-flex justify-content-center">
-      <div className="list-group w-50">
-        {organizedJobs.map((job) => {
-          return <JobItem key={job.id} job={job} />;
-        })}
-      </div>
+      <div className="list-group w-50">{content()}</div>
     </div>
   );
 };

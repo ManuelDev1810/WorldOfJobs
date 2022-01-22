@@ -1,0 +1,1 @@
+export const JOBS_API_URL = "https://react-http-12004-default-rtdb.firebaseio.com/jobs.json";
