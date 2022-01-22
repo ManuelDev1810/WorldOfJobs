@@ -59,6 +59,7 @@ const NewJob = () => {
               id="title"
               placeholder="Title"
               ref={titleElement}
+              required
             />
           </div>
           <div className="mb-3">
@@ -71,6 +72,7 @@ const NewJob = () => {
               id="company"
               placeholder="Company"
               ref={companyElement}
+              required
             />
           </div>
           <div className="mb-3">
@@ -83,6 +85,7 @@ const NewJob = () => {
               id="vacancies"
               placeholder="Vacancies"
               ref={vacanciesElement}
+              required
             />
           </div>
           <div className="mb-3 form-check">
@@ -106,6 +109,7 @@ const NewJob = () => {
               type="file"
               id="resume"
               ref={resumeElement}
+              required
             />
           </div>
           <div className="mb-3">
@@ -117,6 +121,7 @@ const NewJob = () => {
               id="description"
               rows="3"
               ref={descriptionElement}
+              required
             ></textarea>
           </div>
           <button className="btn btn-outline-dark float-end">Send</button>

@@ -1,7 +1,15 @@
 import { jobActions } from "./job-slide";
 import uiSlice, { uiActions } from "./ui-slice";
-import {SUCCESS_STATUS, PENDING_STATUS, ERROR_STATUS} from "../constants/notificationStatus";
-import {SUCCESS_MESSAGE, ERROR_MESSAGE, PENDING_MESSAGE} from "../constants/notificationMessage";
+import {
+  SUCCESS_STATUS,
+  PENDING_STATUS,
+  ERROR_STATUS,
+} from "../constants/notificationStatus";
+import {
+  SUCCESS_MESSAGE,
+  ERROR_MESSAGE,
+  PENDING_MESSAGE,
+} from "../constants/notificationMessage";
 import { JOBS_API_URL } from "../constants/api";
 
 export const fetchJobsData = () => {
@@ -36,6 +44,7 @@ export const fetchJobsData = () => {
           });
         }
       }
+
       dispatch(
         jobActions.replaceJobs({
           jobs: loadedJobs || [],
