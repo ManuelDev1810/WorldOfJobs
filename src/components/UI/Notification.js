@@ -10,13 +10,13 @@ const Notification = (props) => {
       );
     } else if (props.status === PENDING_STATUS) {
       return (
-        <div class="alert alert-primary" role="alert">
+        <div className="alert alert-primary" role="alert">
           {`${props.message}`}
         </div>
       );
     } else if (props.status === ERROR_STATUS) {
       return (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           {`${props.message}`}
         </div>
       );
