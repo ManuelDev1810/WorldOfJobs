@@ -47,7 +47,7 @@ export const fetchJobsData = () => {
 
       dispatch(
         jobActions.replaceJobs({
-          jobs: loadedJobs || [],
+          items: loadedJobs || [],
         })
       );
     } catch (error) {

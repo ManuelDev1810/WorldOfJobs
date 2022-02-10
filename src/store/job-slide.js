@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    jobs: [],
+    items: [],
     changed: false,
 }
 
 const jobSlice = createSlice({
     name: 'jobs',
-    initialState: initialState,
+    initialState,
     reducers: {
         replaceJobs(state, action){
-            state.jobs = action.payload.jobs;
+            state.items = action.payload.items;
         },
         addJob(state, action){
             const newJob = action.payload;
             state.changed = true;
-            state.jobs.push(newJob);
+            state.items.push(newJob);
         }
     }
 });

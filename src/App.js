@@ -27,7 +27,7 @@ function App() {
     }
 
     if (data.changed) {
-      dispatch(sendJobData(data.jobs));
+      dispatch(sendJobData(data.items));
     }
   }, [data, dispatch]);
 
