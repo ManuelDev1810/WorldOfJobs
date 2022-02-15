@@ -8,7 +8,7 @@ const NewJob = () => {
   const companyElement = useRef("");
   const vacanciesElement = useRef(null);
   const remoteElement = useRef(false);
-  const resumeElement = useRef("");
+  const logoElement = useRef("");
   const descriptionElement = useRef("");
 
   const addJobHandler = (event) => {
@@ -17,7 +17,7 @@ const NewJob = () => {
     const enteredCompany = companyElement.current.value;
     const enteredVacancies = vacanciesElement.current.value;
     const enteredRemote = remoteElement.current.checked;
-    const enteredResume = resumeElement.current.value;
+    const enteredLogo = logoElement.current.value;
     const enteredDescription = descriptionElement.current.value;
 
     dispatch(
@@ -27,8 +27,8 @@ const NewJob = () => {
         company: enteredCompany,
         vacancies: enteredVacancies,
         remote: enteredRemote,
-        dscription: enteredDescription,
-        resume: enteredResume,
+        description: enteredDescription,
+        logo: enteredLogo,
         date: new Date().toISOString().slice(0, 10),
       })
     );
@@ -41,7 +41,7 @@ const NewJob = () => {
     companyElement.current.value = "";
     vacanciesElement.current.value = null;
     remoteElement.current.checked = false;
-    resumeElement.current.value = "";
+    logoElement.current.value = "";
     descriptionElement.current.value = "";
   }
 
@@ -101,14 +101,14 @@ const NewJob = () => {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="resume" className="form-label">
-              Add Resume
+            <label htmlFor="logo" className="form-label">
+              Logo
             </label>
             <input
               className="form-control"
-              type="file"
-              id="resume"
-              ref={resumeElement}
+              type="url"
+              id="logo"
+              ref={logoElement}
               required
             />
           </div>

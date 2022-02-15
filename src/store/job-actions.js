@@ -39,7 +39,7 @@ export const fetchJobsData = () => {
             vacancies: jobsData[key].vacancies,
             remote: true,
             description: jobsData[key].description,
-            resume: jobsData[key].resume,
+            logo: jobsData[key].logo,
             date: jobsData[key].date,
           });
         }

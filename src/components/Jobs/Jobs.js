@@ -12,8 +12,8 @@ const Jobs = (props) => {
       props.query !== null
         ? jobs.filter(
             (job) =>
-              job.title.includes(props.query) ||
-              job.company.includes(props.query)
+              job.title.toUpperCase().includes(props.query.toUpperCase()) ||
+              job.company.toUpperCase().includes(props.query.toUpperCase())
           )
         : jobs;
   }

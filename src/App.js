@@ -7,6 +7,7 @@ import Jobs from "./components/Jobs/Jobs";
 import JobsSearch from "./components/Jobs/JobsSearch/JobsSearch";
 import NewJob from "./components/Jobs/NewJob/NewJob";
 import Notification from "./components/UI/Notification";
+import JobDetail from "./components/Jobs/JobDetail/JobDetail";
 
 let isInitial = true;
 
@@ -33,7 +34,7 @@ function App() {
 
   const searchHandler = (query) => {
     setQuery(query);
-  }
+  };
 
   return (
     <div>
@@ -52,10 +53,11 @@ function App() {
           element={
             <>
               <JobsSearch search={searchHandler} />
-              <Jobs query={query}/>
+              <Jobs query={query} />
             </>
           }
-        />
+        ></Route>
+        <Route path="/jobs/:jobId" element={<JobDetail />} />
         <Route path="/new-job" element={<NewJob />} />
       </Routes>
     </div>
