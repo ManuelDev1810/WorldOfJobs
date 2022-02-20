@@ -12,6 +12,7 @@ const JobApplication = (props) => {
       )}
       {ReactDOM.createPortal(
         <JobApplicationModal
+          jobId={props.jobId}
           title={props.title}
           company={props.company}
           onCancel={props.onCancel}

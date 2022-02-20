@@ -1,31 +1,28 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { sendApplicationData } from "../../../store/application-actions";
+import useNotification from "../../../hooks/use-notification";
+import useFile from "../../../hooks/use-file";
 import styles from "./JobAplicationModal.module.css";
 import Card from "../../UI/Card";
-import useFile from "../../../hooks/use-file";
-import {
-  ERROR_STATUS,
-  PENDING_STATUS,
-  SUCCESS_STATUS,
-} from "../../../constants/notificationStatus";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../../../constants/notificationMessages";
+import { PENDING_STATUS } from "../../../constants/notificationStatus";
 
 const JobApplicationModal = (props) => {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState(null);
   const fullNameElement = useRef(null);
   const emailElement = useRef(null);
   const resumeElement = useRef(null);
   const remoteElement = useRef(null);
   const { file: resumeFile, convertToBase64 } = useFile();
+  const { statusMessage, setNotificationMessage } = useNotification();
 
   const onApplyHandler = async (event) => {
     event.preventDefault();
-    setStatus(PENDING_STATUS);
+    setNotificationMessage(PENDING_STATUS);
 
     const application = {
       id: new Date().getTime(),
+      jobId: props.jobId,
       fullName: fullNameElement.current.value,
       email: emailElement.current.value,
       resume: resumeFile,
@@ -34,31 +31,7 @@ const JobApplicationModal = (props) => {
     };
 
     const response = await dispatch(sendApplicationData(application));
-    setStatus(response);
-  };
-
-  const statusContent = () => {
-    //TODO: Move to notification service
-    if (status === SUCCESS_STATUS) {
-      return (
-        <div class="alert alert-success" role="alert">
-          {SUCCESS_MESSAGE}
-        </div>
-      );
-    } else if (status === PENDING_STATUS) {
-      return (
-        <div class="spinner-border text-info" role="status">
-        </div>
-      );
-    } else if (status === ERROR_STATUS) {
-      return (
-        <div class="alert alert-danger" role="alert">
-          {ERROR_MESSAGE}
-        </div>
-      );
-    } else {
-      return null;
-    }
+    setNotificationMessage(response);
   };
 
   return (
@@ -66,7 +39,7 @@ const JobApplicationModal = (props) => {
       <header className={styles.header}>
         <h2>{`Apply to : ${props.title} - ${props.company}`}</h2>
       </header>
-      {statusContent()}
+      {statusMessage}
       <form className={styles.container} onSubmit={onApplyHandler}>
         <div className="mb-3">
           <label htmlFor="full-name" className="form-label">

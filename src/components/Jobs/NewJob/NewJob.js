@@ -1,9 +1,12 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { jobActions } from "../../../store/job-slide";
+import useNotification from "../../../hooks/use-notification";
+import { sendJobData } from "../../../store/job-actions";
+import { PENDING_STATUS } from "../../../constants/notificationStatus";
 
 const NewJob = () => {
   const dispatch = useDispatch();
+  const {statusMessage, setNotificationMessage} = useNotification();
   const titleElement = useRef("");
   const companyElement = useRef("");
   const vacanciesElement = useRef(null);
@@ -11,8 +14,9 @@ const NewJob = () => {
   const logoElement = useRef("");
   const descriptionElement = useRef("");
 
-  const addJobHandler = (event) => {
+  const addJobHandler = async (event) => {
     event.preventDefault();
+    setNotificationMessage(PENDING_STATUS);
     const enteredTitle = titleElement.current.value;
     const enteredCompany = companyElement.current.value;
     const enteredVacancies = vacanciesElement.current.value;
@@ -20,8 +24,8 @@ const NewJob = () => {
     const enteredLogo = logoElement.current.value;
     const enteredDescription = descriptionElement.current.value;
 
-    dispatch(
-      jobActions.addJob({
+    const response = await dispatch(
+      sendJobData({
         id: new Date().getTime(),
         title: enteredTitle,
         company: enteredCompany,
@@ -33,6 +37,8 @@ const NewJob = () => {
       })
     );
 
+    setNotificationMessage(response);
+
     clearForm();
   };
 
@@ -43,11 +49,12 @@ const NewJob = () => {
     remoteElement.current.checked = false;
     logoElement.current.value = "";
     descriptionElement.current.value = "";
-  }
+  };
 
   return (
     <div className="d-flex justify-content-center mt-2 mb-2">
       <div className="list-group w-50">
+        {statusMessage}
         <form onSubmit={addJobHandler}>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
