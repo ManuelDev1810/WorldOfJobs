@@ -44,12 +44,12 @@ const JobDetail = () => {
 
           {showModal !== false ? (
             <JobApplication
+              jobId={job.id}
               title={job.title}
               company={job.company}
               onCancel={() => setShowModal((prevState) => !prevState)}
             />
           ) : null}
-
         </div>
       );
     } else {

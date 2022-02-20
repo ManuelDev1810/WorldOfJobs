@@ -1,36 +1,26 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { fetchJobsData, sendJobData } from "./store/job-actions";
+import { fetchJobsData } from "./store/job-actions";
 import Header from "./components/Header/Header";
 import Jobs from "./components/Jobs/Jobs";
 import JobsSearch from "./components/Jobs/JobsSearch/JobsSearch";
 import NewJob from "./components/Jobs/NewJob/NewJob";
-import Notification from "./components/UI/Notification";
 import JobDetail from "./components/Jobs/JobDetail/JobDetail";
-
-let isInitial = true;
+import useNotification from "./hooks/use-notification";
 
 function App() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.jobs);
-  const notification = useSelector((state) => state.ui.notification);
   const [query, setQuery] = useState(null);
+  const { statusMessage, setNotificationMessage } = useNotification();
 
   useEffect(() => {
-    dispatch(fetchJobsData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
-      return;
-    }
-
-    if (data.changed) {
-      dispatch(sendJobData(data.items));
-    }
-  }, [data, dispatch]);
+    const fetchData = async () => {
+      const response = await dispatch(fetchJobsData());
+      setNotificationMessage(response);
+    };
+    fetchData();
+  }, [dispatch, setNotificationMessage]);
 
   const searchHandler = (query) => {
     setQuery(query);
@@ -39,13 +29,7 @@ function App() {
   return (
     <div>
       <Header />
-      {notification && (
-        <Notification
-          status={notification.status}
-          message={notification.message}
-        />
-      )}
-
+      {statusMessage}
       <Routes>
         <Route path="/" element={<Navigate replace to="/jobs" />} />
         <Route

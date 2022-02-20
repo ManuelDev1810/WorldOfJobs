@@ -1,22 +1,12 @@
 import { jobActions } from "./job-slide";
-import uiSlice, { uiActions } from "./ui-slice";
-import {
-  SUCCESS_STATUS,
-  PENDING_STATUS,
-  ERROR_STATUS,
-} from "../constants/notificationStatus";
-import {
-  SUCCESS_MESSAGE,
-  ERROR_MESSAGE,
-  PENDING_MESSAGE,
-} from "../constants/notificationMessages";
+import { SUCCESS_STATUS, ERROR_STATUS } from "../constants/notificationStatus";
+import { ERROR_MESSAGE } from "../constants/notificationMessages";
 import { JOBS_API_URL } from "../constants/api";
 
 export const fetchJobsData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(JOBS_API_URL);
-
       if (!response.ok) {
         throw new Error(ERROR_MESSAGE);
       }
@@ -51,29 +41,17 @@ export const fetchJobsData = () => {
         })
       );
     } catch (error) {
-      dispatch(
-        uiSlice.showNotifications({
-          status: ERROR_STATUS,
-          message: ERROR_MESSAGE,
-        })
-      );
+      return ERROR_STATUS;
     }
   };
 };
 
-export const sendJobData = (jobs) => {
+export const sendJobData = (job) => {
   return async (dispatch) => {
-    dispatch(
-      uiActions.showNotifications({
-        status: PENDING_STATUS,
-        message: PENDING_MESSAGE,
-      })
-    );
-
     const sendRequest = async () => {
       const response = await fetch(JOBS_API_URL, {
-        method: "PUT",
-        body: JSON.stringify(jobs),
+        method: "POST",
+        body: JSON.stringify(job),
       });
 
       if (!response.ok) {
@@ -83,19 +61,10 @@ export const sendJobData = (jobs) => {
 
     try {
       await sendRequest();
-      dispatch(
-        uiActions.showNotifications({
-          status: SUCCESS_STATUS,
-          message: SUCCESS_MESSAGE,
-        })
-      );
+      dispatch(jobActions.addJob(job));
+      return SUCCESS_STATUS;
     } catch (error) {
-      dispatch(
-        uiActions.showNotifications({
-          status: ERROR_STATUS,
-          message: ERROR_MESSAGE,
-        })
-      );
+      return ERROR_STATUS;
     }
   };
 };
