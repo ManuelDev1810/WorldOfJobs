@@ -9,7 +9,7 @@ import {
   SUCCESS_MESSAGE,
   ERROR_MESSAGE,
   PENDING_MESSAGE,
-} from "../constants/notificationMessage";
+} from "../constants/notificationMessages";
 import { JOBS_API_URL } from "../constants/api";
 
 export const fetchJobsData = () => {

@@ -20,7 +20,6 @@ const Jobs = (props) => {
 
   const content = () => {
     if (organizedJobs.length > 0) {
-      console.log(organizedJobs);
       return (
         <>
           {organizedJobs.map((job) => {
