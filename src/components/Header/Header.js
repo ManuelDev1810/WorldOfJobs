@@ -13,7 +13,7 @@ const Header = () => {
             </li>
             <li key={"new-job"}>
               <NavLink className={(navData) => navData.isActive ? "fs-4 text-white" : "nav-link px-2 text-white text-decoration-none"} to='/new-job' >
-                  <span>Create job vacancy</span>
+                  <span>Create Job</span>
               </NavLink>
             </li>
           </ul>

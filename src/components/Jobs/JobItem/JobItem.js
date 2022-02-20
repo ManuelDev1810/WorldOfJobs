@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const JobItem = (props) => {
-  console.log(props)
   return (
     <Link to={`${props.job.id}`} className="list-group-item list-group-item-action w-100">
       <div className="d-flex w-100 justify-content-between">
