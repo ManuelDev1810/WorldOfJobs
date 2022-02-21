@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Backdrop from "../../UI/Backdrop";
-import  JobApplicationModal from "./JobAplicationModal";
+import  JobApplicationModal from "./JobApplicationModal";
 
 const JobApplication = (props) => {
   return (

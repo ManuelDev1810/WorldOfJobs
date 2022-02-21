@@ -1,12 +1,17 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./JobDetail.module.css";
 import { useEffect, useState } from "react";
 import JobApplication from "../JobApplication/JobApplication";
+import JobApplicationList from "../JobApplication/JobApplicationList";
+import useNotification from "../../../hooks/use-notification";
+import { fetchApplicationsData } from "../../../store/application-actions";
 
 const JobDetail = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { statusMessage, setNotificationMessage } = useNotification();
 
   const [showModal, setShowModal] = useState(false);
   const job = useSelector((state) =>
@@ -17,7 +22,15 @@ const JobDetail = () => {
     if (!job) navigate("/jobs");
   }, [job, navigate]);
 
-  let content = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await dispatch(fetchApplicationsData(jobId));
+      setNotificationMessage(response);
+    };
+    fetchData();
+  }, [dispatch, setNotificationMessage, jobId]);
+
+  let jobDetailContent = () => {
     if (job) {
       return (
         <div className={`card mb-3 ${classes.job_detail}`}>
@@ -57,7 +70,12 @@ const JobDetail = () => {
     }
   };
 
-  return content();
+  return (
+    <>
+      {jobDetailContent()}
+      <JobApplicationList statusMessage={statusMessage} />
+    </>
+  );
 };
 
 export default JobDetail;

@@ -8,6 +8,9 @@ const applicationSlide = createSlice({
   name: "applications",
   initialState,
   reducers: {
+    replaceApplications(state, action) {
+      state.applications = action.payload.applications;
+    },
     addApplication(state, action) {
       state.applications.push(action.payload);
     },
