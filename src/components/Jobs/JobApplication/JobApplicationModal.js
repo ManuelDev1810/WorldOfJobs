@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { sendApplicationData } from "../../../store/application-actions";
 import useNotification from "../../../hooks/use-notification";
 import useFile from "../../../hooks/use-file";
-import styles from "./JobAplicationModal.module.css";
+import styles from "./JobApplicationModal.module.css";
 import Card from "../../UI/Card";
 import { PENDING_STATUS } from "../../../constants/notificationStatus";
 
