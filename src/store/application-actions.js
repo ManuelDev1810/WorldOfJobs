@@ -34,6 +34,7 @@ export const fetchApplicationsData = (jobId) => {
         }
       }
 
+      //DUMMY FILTER BECAUSE FIREBASE IS NOT ALLOWING FILTERING
       loadedApplications =
         jobId !== undefined
           ? loadedApplications.filter((app) => app.jobId === parseInt(jobId))

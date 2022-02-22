@@ -1,28 +1,14 @@
 import { useSelector } from "react-redux";
 import JobItem from "./JobItem/JobItem";
 
-const Jobs = (props) => {
+const Jobs = () => {
   const jobs = useSelector((state) => state.jobs.items);
-  let organizedJobs = [...jobs];
-  organizedJobs.reverse();
-
-  /*DUMMY SEARCH, SHOULD BE DONE IN THE BACKEND*/
-  if (props.query) {
-    organizedJobs =
-      props.query !== null
-        ? jobs.filter(
-            (job) =>
-              job.title.toUpperCase().includes(props.query.toUpperCase()) ||
-              job.company.toUpperCase().includes(props.query.toUpperCase())
-          )
-        : jobs;
-  }
 
   const content = () => {
-    if (organizedJobs.length > 0) {
+    if (jobs.length > 0) {
       return (
         <>
-          {organizedJobs.map((job) => {
+          {jobs.map((job) => {
             return <JobItem key={job.id} job={job} />;
           })}
         </>
