@@ -2,11 +2,15 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import useNotification from "../../../hooks/use-notification";
 import { sendJobData } from "../../../store/job-actions";
-import { PENDING_STATUS } from "../../../constants/notificationStatus";
+import { SENDING_STATUS } from "../../../constants/notificationStatus";
 
 const NewJob = () => {
   const dispatch = useDispatch();
-  const {statusMessage, setNotificationMessage} = useNotification();
+  const { statusMessage, setNotificationMessage } = useNotification({
+    shouldDissapear: true,
+    dissapearTime: 3000,
+    shouldClear: true,
+  });
   const titleElement = useRef("");
   const companyElement = useRef("");
   const vacanciesElement = useRef(null);
@@ -16,7 +20,7 @@ const NewJob = () => {
 
   const addJobHandler = async (event) => {
     event.preventDefault();
-    setNotificationMessage(PENDING_STATUS);
+    setNotificationMessage(SENDING_STATUS);
     const enteredTitle = titleElement.current.value;
     const enteredCompany = companyElement.current.value;
     const enteredVacancies = vacanciesElement.current.value;

@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import classes from "./JobDetail.module.css";
 import { useEffect, useState } from "react";
 import JobApplication from "../JobApplication/JobApplication";
-import JobApplicationList from "../JobApplication/JobApplicationList";
+import JobApplicationList from "../JobApplication/JobApplicationList/JobApplicationList";
 import useNotification from "../../../hooks/use-notification";
 import { fetchApplicationsData } from "../../../store/application-actions";
+import { FETCHING_STATUS } from "../../../constants/notificationStatus";
 
 const JobDetail = () => {
   const { jobId } = useParams();
@@ -23,12 +24,15 @@ const JobDetail = () => {
   }, [job, navigate]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await dispatch(fetchApplicationsData(jobId));
-      setNotificationMessage(response);
-    };
-    fetchData();
-  }, [dispatch, setNotificationMessage, jobId]);
+    if (job) {
+      const fetchData = async () => {
+        setNotificationMessage(FETCHING_STATUS);
+        const response = await dispatch(fetchApplicationsData(job.id));
+        setNotificationMessage(response !== undefined ? response : null);
+      };
+      fetchData();
+    }
+  }, [dispatch, setNotificationMessage, job]);
 
   let jobDetailContent = () => {
     if (job) {
