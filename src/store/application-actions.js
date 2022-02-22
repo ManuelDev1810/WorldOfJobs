@@ -68,6 +68,7 @@ export const sendApplicationData = (application) => {
 
     try {
       await sendRequest();
+      dispatch(applicationActions.addApplication(application));
       return SUCCESS_STATUS;
     } catch (error) {
       return ERROR_STATUS;

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { sendApplicationData } from "../../../store/application-actions";
-import useNotification from "../../../hooks/use-notification";
-import useFile from "../../../hooks/use-file";
+import { sendApplicationData } from "../../../../store/application-actions";
+import useNotification from "../../../../hooks/use-notification";
+import useFile from "../../../../hooks/use-file";
 import styles from "./JobApplicationModal.module.css";
-import Card from "../../UI/Card";
-import { PENDING_STATUS } from "../../../constants/notificationStatus";
+import Card from "../../../UI/Card";
+import { SENDING_STATUS } from "../../../../constants/notificationStatus";
 
 const JobApplicationModal = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const JobApplicationModal = (props) => {
 
   const onApplyHandler = async (event) => {
     event.preventDefault();
-    setNotificationMessage(PENDING_STATUS);
+    setNotificationMessage(SENDING_STATUS);
 
     const application = {
       id: new Date().getTime(),
