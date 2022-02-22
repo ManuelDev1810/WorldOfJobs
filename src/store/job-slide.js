@@ -15,7 +15,7 @@ const jobSlice = createSlice({
         addJob(state, action){
             const newJob = action.payload;
             state.changed = true;
-            state.items.push(newJob);
+            state.items.unshift(newJob);
         }
     }
 });

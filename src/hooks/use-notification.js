@@ -9,10 +9,20 @@ import {
   PENDING_MESSAGE,
   ERROR_MESSAGE,
 } from "../constants/notificationMessages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useNotification = () => {
   const [statusMessage, setStatusMessage] = useState(null);
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setStatusMessage(null);
+    }, 3000);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [statusMessage]);
 
   const setNotificationMessage = (status) => {
     if (status === SUCCESS_STATUS) {
