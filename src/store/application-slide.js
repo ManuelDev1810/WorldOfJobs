@@ -12,7 +12,7 @@ const applicationSlide = createSlice({
       state.applications = action.payload.applications;
     },
     addApplication(state, action) {
-      state.applications.push(action.payload);
+      state.applications.unshift(action.payload);
     },
   },
 });
