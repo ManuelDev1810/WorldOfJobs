@@ -1,8 +1,20 @@
-const JobsSearch = (props) => {
-  const searchJobHandler = (event) => {
-    event.preventDefault();
-    props.search(event.target.value);
-  };
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchJobsData } from "../../../store/job-actions";
+
+const JobsSearch = () => {
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      dispatch(fetchJobsData(search));
+    }, 500);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [search, dispatch]);
 
   return (
     <div className="w-75 d-flex justify-content-end mt-2 mb-2">
@@ -13,7 +25,7 @@ const JobsSearch = (props) => {
           className="form-control"
           placeholder="by title or company"
           aria-label="Search"
-          onChange={(e) => searchJobHandler(e)}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </form>
     </div>

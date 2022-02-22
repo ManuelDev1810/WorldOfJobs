@@ -3,7 +3,7 @@ import { SUCCESS_STATUS, ERROR_STATUS } from "../constants/notificationStatus";
 import { ERROR_MESSAGE } from "../constants/notificationMessages";
 import { JOBS_API_URL } from "../constants/api";
 
-export const fetchJobsData = () => {
+export const fetchJobsData = (filter) => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(JOBS_API_URL);
@@ -18,7 +18,7 @@ export const fetchJobsData = () => {
 
     try {
       const jobsData = await fetchData();
-      const loadedJobs = [];
+      let loadedJobs = [];
 
       if (jobsData) {
         for (const key in jobsData) {
@@ -34,6 +34,18 @@ export const fetchJobsData = () => {
           });
         }
       }
+
+      //DUMMY FILTER BECAUSE FIREBASE IS NOT ALLOWING FILTERING
+      loadedJobs =
+        filter !== undefined
+          ? loadedJobs.filter(
+              (job) =>
+                job.title.toUpperCase().includes(filter.toUpperCase()) ||
+                job.company.toUpperCase().includes(filter.toUpperCase())
+            )
+          : loadedJobs;
+
+      loadedJobs.reverse();
 
       dispatch(
         jobActions.replaceJobs({

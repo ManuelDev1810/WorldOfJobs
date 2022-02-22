@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { fetchJobsData } from "./store/job-actions";
@@ -11,7 +11,6 @@ import useNotification from "./hooks/use-notification";
 
 function App() {
   const dispatch = useDispatch();
-  const [query, setQuery] = useState(null);
   const { statusMessage, setNotificationMessage } = useNotification();
 
   useEffect(() => {
@@ -21,10 +20,6 @@ function App() {
     };
     fetchData();
   }, [dispatch, setNotificationMessage]);
-
-  const searchHandler = (query) => {
-    setQuery(query);
-  };
 
   return (
     <div>
@@ -36,8 +31,8 @@ function App() {
           path="/jobs"
           element={
             <>
-              <JobsSearch search={searchHandler} />
-              <Jobs query={query} />
+              <JobsSearch />
+              <Jobs />
             </>
           }
         ></Route>
