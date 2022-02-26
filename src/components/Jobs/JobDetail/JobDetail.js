@@ -2,8 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./JobDetail.module.css";
 import { useEffect, useState } from "react";
-import JobApplication from "../JobApplication/JobApplication";
+import JobApplicationModal from "../JobApplication/JobApplicationModal/JobApplicationModal";
 import JobApplicationList from "../JobApplication/JobApplicationList/JobApplicationList";
+import Modal from "../../UI/Modal";
 import useNotification from "../../../hooks/use-notification";
 import { fetchApplicationsData } from "../../../store/application-actions";
 import { FETCHING_STATUS } from "../../../constants/notificationStatus";
@@ -12,8 +13,8 @@ const JobDetail = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { statusMessage, setNotificationMessage } = useNotification();
 
+  const { statusMessage, setNotificationMessage } = useNotification();
   const [showModal, setShowModal] = useState(false);
   const job = useSelector((state) =>
     state.jobs.items.find((job) => job.id === parseInt(jobId))
@@ -33,6 +34,8 @@ const JobDetail = () => {
       fetchData();
     }
   }, [dispatch, setNotificationMessage, job]);
+
+  const setModal = () => setShowModal((prevState) => !prevState);
 
   let jobDetailContent = () => {
     if (job) {
@@ -58,15 +61,6 @@ const JobDetail = () => {
           >
             Apply
           </button>
-
-          {showModal !== false ? (
-            <JobApplication
-              jobId={job.id}
-              title={job.title}
-              company={job.company}
-              onCancel={() => setShowModal((prevState) => !prevState)}
-            />
-          ) : null}
         </div>
       );
     } else {
@@ -78,6 +72,16 @@ const JobDetail = () => {
     <>
       {jobDetailContent()}
       <JobApplicationList statusMessage={statusMessage} />
+      {showModal !== false ? (
+        <Modal onCancel={setModal}>
+          <JobApplicationModal
+            jobId={job.id}
+            title={job.title}
+            company={job.company}
+            onCancel={setModal}
+          />
+        </Modal>
+      ) : null}
     </>
   );
 };

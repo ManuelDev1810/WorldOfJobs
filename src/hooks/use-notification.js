@@ -22,8 +22,6 @@ const initialConfiuration = {
 const useNotification = (configuration = initialConfiuration) => {
   const [statusMessage, setStatusMessage] = useState(null);
 
-  console.log('Notification');
-
   useEffect(() => {
     let identifier = null;
     if (configuration.shouldDissapear) {

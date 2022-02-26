@@ -1,0 +1,23 @@
+.pdf {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 4vh;
+  width: 80% !important;
+  left: 10% !important;
+  right: 10% !important;
+  height: 90% !important;
+  z-index: 100;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+}
