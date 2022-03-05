@@ -1,8 +1,13 @@
 import { useSelector } from "react-redux";
+import usePagination from "../../hooks/use-pagination";
 import JobItem from "./JobItem/JobItem";
 
 const Jobs = () => {
-  const jobs = useSelector((state) => state.jobs.items);
+  const data = useSelector((state) => state.jobs.items);
+  const { items: jobs, pagination } = usePagination({
+    items: data,
+    itemsPerPage: 5,
+  });
 
   const content = () => {
     if (jobs.length > 0) {
@@ -19,8 +24,9 @@ const Jobs = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
-      <div className="list-group w-50">{content()}</div>
+    <div>
+      <div>{content()}</div>
+      {pagination()}
     </div>
   );
 };

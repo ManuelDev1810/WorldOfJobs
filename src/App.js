@@ -30,10 +30,12 @@ function App() {
         <Route
           path="/jobs"
           element={
-            <>
-              <JobsSearch />
-              <Jobs />
-            </>
+            <div className="w-50 m-auto">
+              <div className="d-flex flex-column">
+                <JobsSearch />
+                <Jobs />
+              </div>
+            </div>
           }
         ></Route>
         <Route path="/jobs/:jobId" element={<JobDetail />} />
