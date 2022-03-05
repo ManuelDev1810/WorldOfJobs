@@ -27,7 +27,7 @@ export const fetchJobsData = (filter) => {
             title: jobsData[key].title,
             company: jobsData[key].company,
             vacancies: jobsData[key].vacancies,
-            remote: true,
+            remote: jobsData[key].remote,
             description: jobsData[key].description,
             logo: jobsData[key].logo,
             date: jobsData[key].date,
