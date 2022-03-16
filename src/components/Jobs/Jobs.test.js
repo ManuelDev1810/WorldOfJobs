@@ -18,7 +18,7 @@ const initialState = {
     ],
     changed: false,
   },
-  ui: { notification: null },
+  applications: { applications: [] },
 };
 
 const initialEmptyState = {
@@ -26,7 +26,7 @@ const initialEmptyState = {
     items: [],
     changed: false,
   },
-  ui: { notification: null },
+  applications: { applications: [] },
 };
 
 describe("Jobs component", () => {
