@@ -22,32 +22,32 @@ describe("Header component", () => {
     );
   });
 
-  test('render "New Job" redirect element', () => {
-    //Arrange
-    render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
-    );
+  // test('render "New Job" redirect element', () => {
+  //   //Arrange
+  //   render(
+  //     <MemoryRouter>
+  //       <Header />
+  //     </MemoryRouter>
+  //   );
 
-    //Act
+  //   //Act
 
-    //Assert
-    const anchorElement = screen.getByText("Create job vacancy").parentElement;
-    expect(anchorElement).toHaveAttribute(
-      "href",
-      expect.stringContaining("/new-job")
-    );
-  });
+  //   //Assert
+  //   const anchorElement = screen.getByText("Create job vacancy").parentElement;
+  //   expect(anchorElement).toHaveAttribute(
+  //     "href",
+  //     expect.stringContaining("/new-job")
+  //   );
+  // });
 
-  test('render "FINDING YOUR JOB IS MY JOB" as a text', () => {
-      //Arrange
-      render(<MemoryRouter><Header /></MemoryRouter>)
+  // test('render "FINDING YOUR JOB IS MY JOB" as a text', () => {
+  //     //Arrange
+  //     render(<MemoryRouter><Header /></MemoryRouter>)
 
-      //Act
+  //     //Act
 
-      //Arrange
-      const textElement = screen.getByText("FINDING YOUR JOB IS MY JOB");
-      expect(textElement).toBeInTheDocument();
-  })
+  //     //Arrange
+  //     const textElement = screen.getByText("FINDING YOUR JOB IS MY JOB");
+  //     expect(textElement).toBeInTheDocument();
+  // })
 });

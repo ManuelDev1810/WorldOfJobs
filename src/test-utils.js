@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 // Import your own reducer
 import jobSlice from "./store/job-slide";
-import uiSlice from "./store/ui-slice";
+import applicationSlide from "./store/application-slide";
 import { BrowserRouter } from "react-router-dom";
 
 function render(
@@ -13,7 +13,10 @@ function render(
   {
     preloadedState,
     store = configureStore({
-      reducer: { jobs: jobSlice.reducer, ui: uiSlice.reducer },
+      reducer: {
+        jobs: jobSlice.reducer,
+        applications: applicationSlide.reducer,
+      },
       preloadedState,
     }),
     ...renderOptions

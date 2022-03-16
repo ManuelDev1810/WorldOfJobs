@@ -1,6 +1,7 @@
 import { render, screen } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 import App from "../../../App";
+import { waitFor } from "@testing-library/react";
 
 const initialState = {
   jobs: {
@@ -11,27 +12,26 @@ const initialState = {
         description: "Senior Backend Developer remotely",
         id: 1642893043059,
         remote: true,
-        resume:
-          "C:\\fakepath\\5-Estrategias de CE y marketing digital para PyMEs.pdf",
+        logo: "https://images-na.ssl-images-amazon.com/images/G/01/gc/designs/livepreview/amazon_dkblue_noto_email_v2016_us-main._CB468775337_.png",
         title: "Senior Backend Developer",
         vacancies: "4",
       },
     ],
     changed: false,
   },
-  ui: { notification: null },
+  applications: { applications: [] },
 };
 
 const initialEmptyState = {
-    jobs: {
-      items: [],
-      changed: false,
-    },
-    ui: { notification: null },
-  };
+  jobs: {
+    items: [],
+    changed: false,
+  },
+  applications: { applications: [] },
+};
 
 describe("JobSearch", () => {
-  it('should "Search when there an user write in the search field and when there is data', () => {
+  it('should "Search when an user write in the search field and when there is data', () => {
     //Arrange
     render(<App />, { preloadedState: initialState }, { route: "/" });
 
@@ -47,23 +47,23 @@ describe("JobSearch", () => {
     ).toBeInTheDocument();
   });
 
-  it('should not find anything when there is not match', () => {
+  it("should not find anything when there is not match", async () => {
     //Arrange
     render(<App />, { preloadedState: initialState }, { route: "/" });
 
     //Act
     userEvent.type(
       screen.getByRole("searchbox", { name: /search/i }),
-      "Google"
+      "ddsfgdsgdgbfdsfdffgdfdffgdgffdgdfgfdfdgfdgdfg"
     );
 
     //Assert
-    expect(
-      screen.getByText("No jobs available")
-    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText("No jobs available")).toBeInTheDocument()
+    );
   });
 
-  it('should not find anything when there are not jobs', () => {
+  it("should not find anything when there are not jobs", async () => {
     //Arrange
     render(<App />, { preloadedState: initialEmptyState }, { route: "/" });
 
@@ -74,8 +74,8 @@ describe("JobSearch", () => {
     );
 
     //Assert
-    expect(
-      screen.getByText("No jobs available")
-    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText("No jobs available")).toBeInTheDocument()
+    );
   });
 });
